@@ -15,7 +15,7 @@
                 </li>
             </ul>
             <div class="chat-input">
-                <textarea  type="text" name="prompt" [(ngModel)]="prompt" placeholder="Enter a message..." (keydown.enter)="sendMessage()"></textarea>
+                <textarea [(ngModel)]="prompt" placeholder="Enter a message..." (keydown.enter)="sendMessage()"></textarea>
                 <button id="sendBTN" (click)="sendMessage()">Send</button>
             </div>   
          </div>

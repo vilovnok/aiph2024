@@ -18,8 +18,13 @@ export class UserService {
   handle_post_requests(userObject: any, endpoint: string) {
     return this.http.post<any>(`${this.address}/${endpoint}`, userObject)
   }
+
   handle_get_requests(userObject: any, endpoint: string) {
     return this.http.get<any>(`${this.address}/${endpoint}/${userObject}`)
+  }
+
+  healthcheck(endpoint: string) {
+    return this.http.get<any>(`${this.address}/${endpoint}`)
   }
 
   // getCurrentUserProfile$(): Observable<ProfileUser | null> {

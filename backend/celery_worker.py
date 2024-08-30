@@ -23,9 +23,11 @@ model_loader = ModelTest(model_path)
 
 @celery.task
 def generate_text_task(prompt):
+    print('2')
     outputs = generate_output_test(
         prompt, model_loader.model, model_loader.tokenizer
     )
+    print('4')
     return model_loader.tokenizer.decode(outputs[0], skip_special_tokens=True)
 
 

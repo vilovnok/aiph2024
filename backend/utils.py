@@ -36,6 +36,7 @@ def memory_decorator(func):
 # @memory_decorator
 # @time_decorator
 def generate_output_test(prompt, model: T5ForConditionalGeneration, tokenizer: AutoTokenizer):
+    print('3')
     input_ids = tokenizer(prompt, return_tensors='pt', truncation=True)
     outputs=model.generate(**input_ids, num_beams=2, max_length=100)
     return outputs

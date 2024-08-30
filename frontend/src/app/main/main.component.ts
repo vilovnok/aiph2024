@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { combineLatest, delay, Observable, of, switchMap, tap } from 'rxjs';
+import { Component} from '@angular/core';
 import { UserService } from '../services/user.service';
 import { FormBuilder } from '@angular/forms';
 
@@ -11,66 +9,30 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent {
+  prompt: string = '';
 
-  chatListControl = new FormControl();
-  // messageControl = new FormControl();
-
-  prompt:string = ''; 
- 
-  constructor(private service: UserService, private fb: FormBuilder){}
-
-  delay(ms: number) {
-    console.log('TIME DELAY');
-    return new Promise( resolve => setTimeout(resolve, ms) );
-  }
+  constructor(private service: UserService, private fb: FormBuilder) { }
 
   sendMessage() {
-    const data = this.fb.group({prompt: this.prompt});
+    const data = this.fb.group({ prompt: this.prompt });
     console.log('Сообщение отправлено! ', this.prompt);
-    if (this.prompt) {    
-      this.service.handle_post_requests(data.value,'generateText').subscribe(result =>{
-        console.log(result);
+    if (this.prompt) {
+      this.service.handle_post_requests(data.value, 'generateText').subscribe(response => {
+        this.checkTaskStatus(response['task_id']);
         this.prompt = '';
-        
-        // this.service.handle_get_requests(result['task_id'],'task').subscribe(res => {console.log(res);});        
-        this.checkTaskStatus(result['task_id']);
       });
     }
-    console.log('Сообщение не отправлено!');
   }
 
-
-  checkTaskStatus(taskId: string) {
-    this.pollTaskStatus(taskId).subscribe({
-      next: (res) => {
-        console.log('Final response:', res);
-      },
-      error: (err) => {
-        console.error('Error:', err);
-      }
+  async checkTaskStatus(task_id: string) {
+    const sleep = (ms: number): Promise<void> => {return new Promise((r) => setTimeout(r, ms));}
+    await sleep(5000)
+    this.service.handle_get_requests(task_id, 'task').subscribe(response => {
+      console.log(response);
+      this.prompt=response['result'];
     });
   }
-
-  private pollTaskStatus(taskId: string): Observable<any> {
-    return this.service.handle_get_requests(taskId, 'task').pipe(
-      tap((res) => {
-        console.log(res);
-      }),
-      switchMap((res) => {
-        if (res.status === 'Task Pending') {
-          // Повторяем запрос после задержки
-          return this.pollTaskStatus(taskId).pipe(delay(1000));
-        } else {
-          // Возвращаем результат, когда задача не находится в состоянии 'Task Pending'
-          return of(res);
-        }
-      })
-    );
-  }
-
-
-
-
-
-
 }
+
+
+
