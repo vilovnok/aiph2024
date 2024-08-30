@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="messages mat-elevation-z5">
+        <div class="messages-header">
+            <img  src="assets/bot.jpeg" alt="bot_img">
+            <h2>Бот</h2>
+        </div>
+        <hr>
+         <div class="input-chat">
+            <ul class="chatbox">
+                <li class="chat-incoming chat">
+                    <p>Здравствуйте! Чем могу помочь ?</p>
+                </li>
+                <li class="chat-incoming chat">
+                    <p>Здравствуйте! Чем могу помочь ?</p>
+                </li>
+            </ul>
+            <div class="chat-input">
+                <textarea  type="text" name="prompt" [(ngModel)]="prompt" placeholder="Enter a message..." (keydown.enter)="sendMessage()"></textarea>
+                <button id="sendBTN" (click)="sendMessage()">Send</button>
+            </div>   
+         </div>
+    </div>
+</div>
