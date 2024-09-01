@@ -24,12 +24,27 @@ app.add_middleware(
     allow_headers=["Content-Type", "Set-Cookie", "Access-Control-Allow-Headers", "Access-Control-Allow-Origin","Authorization"],
 )
 
+# class MessageModel(BaseModel):
+#     text: str
+#     type: str
+
 class Prompt(BaseModel):
     prompt: str
 
-@app.get("/health")
+@app.get("/messages")
 async def healthcheck():
-    return {"status":"success"}
+    messages = [
+        {
+        "text":'Здравствуйте! Чем могу помочь ?',
+        "type": 'bot'
+        },
+        {
+        "text":'Здравствуйте! Могли бы вы мне ответить на ...',
+        "type": 'human'
+        }
+        ]
+                
+    return {'status': 200, 'message': messages}
 
 @app.post("/generateText")
 async def generate_text(prompt: Prompt):
@@ -40,6 +55,9 @@ async def generate_text(prompt: Prompt):
 async def get_generate_text(task_id: str):
     task = AsyncResult(task_id)
     choice=task.ready()
+    print("Task", task)
+    print("Task ID", task.id)
+    print("Bool ", choice)
     if choice:
         task_result = task.get()
         return {"result": task_result}

@@ -1,16 +1,4 @@
-export interface Message {
-    text: string;
+export interface MessageModel {
     type: string;
+    text: string;
 }
-
-// export interface Chat {
-//     id: string;
-//     lastMessage?: string;
-//     lastMessageDate?: string;
-//     userIds: string[];
-//     users: ProfileUser[];
-
-//     chatPic?: string;
-//     chatName?: string;
-// }
-

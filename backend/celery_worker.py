@@ -4,7 +4,7 @@ from model_loader import (ModelLoader, ModelTest)
 
 
 def make_celery(app_name=__name__):
-    backend = broker = "redis://localhost:6379/0"
+    backend = broker = "redis://localhost:6380/0"
     return Celery(app_name, backend=backend, broker=broker)
 
 
@@ -23,11 +23,9 @@ model_loader = ModelTest(model_path)
 
 @celery.task
 def generate_text_task(prompt):
-    print('2')
     outputs = generate_output_test(
         prompt, model_loader.model, model_loader.tokenizer
     )
-    print('4')
     return model_loader.tokenizer.decode(outputs[0], skip_special_tokens=True)
 
 
