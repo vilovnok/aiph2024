@@ -24,10 +24,6 @@ app.add_middleware(
     allow_headers=["Content-Type", "Set-Cookie", "Access-Control-Allow-Headers", "Access-Control-Allow-Origin","Authorization"],
 )
 
-# class MessageModel(BaseModel):
-#     text: str
-#     type: str
-
 class Prompt(BaseModel):
     prompt: str
 
@@ -55,9 +51,6 @@ async def generate_text(prompt: Prompt):
 async def get_generate_text(task_id: str):
     task = AsyncResult(task_id)
     choice=task.ready()
-    print("Task", task)
-    print("Task ID", task.id)
-    print("Bool ", choice)
     if choice:
         task_result = task.get()
         return {"result": task_result}

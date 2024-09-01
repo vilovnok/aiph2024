@@ -5,7 +5,7 @@
             <h2>Ассистент</h2>
         </div>
         <hr>
-            <div class="chatbox" #chatbox>
+            <div class="chatbox">
                 <div *ngFor="let item of messages" 
                 [ngClass]="{
                     'chat-message-bot': item.type === 'bot',
@@ -14,8 +14,8 @@
                     <div class="details">
                         <p>{{item.text}}</p>
                     </div>                    
-                </div>                        
-
+                </div>      
+                                  
                 <div class="chat-typing" *ngIf="istyping">
                     <p>печатает...</p>               
                 </div>
@@ -23,8 +23,6 @@
             <hr>
             <div class="chat-input">
                 <textarea [(ngModel)]="prompt" placeholder="Введите" (keydown.enter)="sendMessage()"></textarea>
-                <!-- <button id="sendBTN" (click)="sendMessage()">Send</button> -->
             </div>
-        
     </div>
 </div>

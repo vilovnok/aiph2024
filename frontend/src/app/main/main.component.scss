@@ -51,8 +51,8 @@ $font-family: "Roboto Mono", monospace;
     border-top-right-radius: 5px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px; 
+    scrollbar-width: none;
     
-
     .chat-message-bot {
       display: flex;
 
@@ -111,12 +111,35 @@ $font-family: "Roboto Mono", monospace;
   }
 
 .chat-input {
-
   padding: 10px;
   display: flex;
   justify-content:center;
 
-  textarea {
+//////
+        /* Стилизация полосы прокрутки */
+        textarea::-webkit-scrollbar {
+          width: 8px; /* Ширина полосы прокрутки */
+      }
+
+      textarea::-webkit-scrollbar-track {
+          background: $black; /* Цвет фона полосы прокрутки */
+          border-radius: 10px; /* Скругление углов полосы прокрутки */
+      }
+
+      textarea::-webkit-scrollbar-thumb {
+          background: $gray_light; /* Цвет бегунка полосы прокрутки */
+          border-radius: 18px; /* Скругление углов бегунка */
+      }
+
+      textarea::-webkit-scrollbar-thumb:hover {
+          background: $orange; /* Цвет бегунка при наведении */
+      }
+
+
+
+
+/////
+  textarea {  
     width: 90%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -130,12 +153,11 @@ $font-family: "Roboto Mono", monospace;
     height: 71px;
     font-family: $font-family;
   }
-    
+
   textarea:hover {
     border: 1px solid $orange;
     cursor: pointer;
   }
-
 }
 
 hr {
@@ -146,47 +168,10 @@ hr {
 }
 
 
+///////
+/// 
+/// 
+/// <!DOCTYPE html>
 
-// #cross {
-//   float: right;
-//   position: relative;
-//   top: -38px;
-//   left: -15px;
-//   cursor: pointer;
-//   color: white;
-//   font-weight: bolder;
-//   font-size: 28px;
-// }
- 
-// #cross:hover {
-//   color: red;
-//   transition: all .5s;
-// }
- 
-// .chatbox .chat p.error {
-//   color: #ffffff;
-//   background-color: #ff3737e8;
-// }
- 
-// #sendBTN {
-//   width: 100%;
-//   padding: 8px;
-//   border: 0;
-//   outline: none;
-//   font-size: 20px;
-//   font-weight: 600;
-//   border-radius: 7px;
-//   background-color: #2F8D46;
-//   cursor: pointer;
-//   color: white;
-//   margin-top: 12px;
-// }
- 
-// .lastMessage {
-//   margin-top: 50px;
-//   font-size: 35px;
-//   font-weight: 600;
-//   color: darkgreen;
-//   margin-left: 550px;
-// }
+
 
