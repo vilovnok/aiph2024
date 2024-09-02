@@ -1,12 +1,8 @@
 from fastapi import FastAPI
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from celery.result import AsyncResult
-from typing import Any
-from fastapi.middleware.cors import CORSMiddleware
 from celery_worker import generate_text_task
-from dotenv import load_dotenv
-
-load_dotenv()
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title='Proxima')
 
@@ -21,7 +17,7 @@ app.add_middleware(
 )
 
 class Prompt(BaseModel):
-    prompt: str
+    text: str
 
 @app.get("/messages")
 async def healthcheck():
@@ -40,7 +36,7 @@ async def healthcheck():
 
 @app.post("/generateText")
 async def generate_text(prompt: Prompt):
-    task = generate_text_task.delay(prompt.prompt)
+    task = generate_text_task.delay(prompt.text)
     return {"task_id": task.id}
 
 @app.get("/task/{task_id}")

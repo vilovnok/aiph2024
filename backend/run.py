@@ -1,27 +1,9 @@
-import http.client
-import json
 import time
-
 import requests
 
 API_HOST = "localhost"
 API_PORT = 8000
 
-
-# def generate_text(prompt):
-#     conn = http.client.HTTPConnection(API_HOST, API_PORT)
-#     headers = {"Content-type": "application/json"}
-#     data = {"prompt": prompt}
-#     json_data = json.dumps(data)
-#     conn.request("POST", "/generateText/", json_data, headers)
-#     response = conn.getresponse()
-#     if response.status != 200:
-#         print('Error: ', response.status)
-#         conn.close()
-#         return None
-#     result = json.loads(response.read().decode())
-#     conn.close()
-#     return result["task_id"]
 
 def generate_text(prompt):
     url = "http://localhost:8000/generateText/"
@@ -43,15 +25,6 @@ def get_task_status(task_id):
         return result
     else:
         print('Error ', response.status_code)
-
-# def get_task_status(task_id):
-#     conn = http.client.HTTPConnection(API_HOST, API_PORT)
-#     conn.request("GET", f"/generateTextTask/{task_id}")
-#     response = conn.getresponse()
-#     status = response.read().decode()
-#     conn.close()
-    # return status
-
 
 def main():
     prompt = input("Enter the prompt: ")

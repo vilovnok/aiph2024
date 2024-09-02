@@ -47,7 +47,7 @@ export class MainComponent implements OnInit {
     
     if (promptToSend) {
 
-      const data = this.fb.group({ prompt: promptToSend });
+      const data = this.fb.group({ text: promptToSend });
       this.service.handle_post_requests(data.value, 'generateText').subscribe(response => {
         this.checkTaskStatus(response['task_id']);
       
