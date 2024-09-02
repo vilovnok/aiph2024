@@ -10,11 +10,7 @@ load_dotenv()
 
 app = FastAPI(title='Proxima')
 
-origins = ["http://localhost",
-           "http://0.0.0.0",
-           "http://127.0.0.1",
-           "http://localhost:80",
-           "http://localhost:4200"]
+origins = ["http://0.0.0.0:80","http://localhost:4200"]
 
 app.add_middleware(
     CORSMiddleware,

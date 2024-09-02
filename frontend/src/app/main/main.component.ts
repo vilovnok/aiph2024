@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { FormBuilder } from '@angular/forms';
-import { MessageModel } from '../models/message/message';
+import { MessageModel } from '../models/message';
 
 @Component({
   selector: 'app-main',
@@ -14,6 +14,8 @@ export class MainComponent implements OnInit {
   prompt: string = '';
   messages: MessageModel[] = [];
   istyping: boolean = false;
+  isPlaying: boolean = false;
+
   public sleep = (ms: number): Promise<void> => { return new Promise((r) => setTimeout(r, ms)); }
 
   constructor(private service: UserService, private fb: FormBuilder) { }
@@ -26,25 +28,37 @@ export class MainComponent implements OnInit {
   }
 
   async sendMessage() {
-    if (!this.prompt.trim()) {
-      console.log('Logogog');
+    if (!this.prompt.trim() || this.isPlaying) {
       this.prompt='';
       return;
     }
+
     this.messages.push({ 'text': this.prompt, 'type': 'human' })
+    
     const promptToSend = this.prompt;
+    
+    this.isPlaying = true;
+    
     this.prompt = '';
+    
     await this.sleep(2000);
+    
     this.istyping = true;
+    
     if (promptToSend) {
+
       const data = this.fb.group({ prompt: promptToSend });
       this.service.handle_post_requests(data.value, 'generateText').subscribe(response => {
         this.checkTaskStatus(response['task_id']);
+      
       }, async (err) => {
+      
         await this.sleep(2000);
         this.istyping = false;
         this.messages.push({ 'text': "Извините, мы позже вернемся к Вашему вопросу.", 'type': 'bot' })
         console.error('Error sending message: ', err);
+        this.isPlaying = false;
+      
       });
     }
 
@@ -53,10 +67,9 @@ export class MainComponent implements OnInit {
   async checkTaskStatus(task_id: string) {
     await this.sleep(5000)
     this.service.handle_get_requests(task_id, 'task').subscribe(response => {
-      console.log(response);
       this.istyping = false;
       this.messages.push({ 'text': response['result'], 'type': 'bot' })
-      console.log("Area", this.prompt);
+      this.isPlaying = false;
     });
   }
 }
