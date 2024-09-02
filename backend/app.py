@@ -1,5 +1,5 @@
+from schema import Message
 from fastapi import FastAPI
-from pydantic import BaseModel
 from celery.result import AsyncResult
 from celery_worker import generate_text_task
 from fastapi.middleware.cors import CORSMiddleware
@@ -15,9 +15,6 @@ app.add_middleware(
     allow_methods=["GET", "POST", "OPTIONS", "DELETE", "PATCH", "PUT"],
     allow_headers=["Content-Type", "Set-Cookie", "Access-Control-Allow-Headers", "Access-Control-Allow-Origin","Authorization"],
 )
-
-class Prompt(BaseModel):
-    text: str
 
 @app.get("/messages")
 async def healthcheck():
@@ -35,7 +32,7 @@ async def healthcheck():
     return {'status': 200, 'message': messages}
 
 @app.post("/generateText")
-async def generate_text(prompt: Prompt):
+async def generate_text(prompt: Message):
     task = generate_text_task.delay(prompt.text)
     return {"task_id": task.id}
 
