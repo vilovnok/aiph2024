@@ -20,9 +20,9 @@
             </div>
         </div>
         <hr>
+
         <div class="wrapper">
             <input type="text" [(ngModel)]="prompt" placeholder="Введите" />
-
             <button (click)="sendMessage()"
                 [ngStyle]="{background: isPlaying ? 'white' : (prompt ? 'white' : '#686868')}">
                 <svg *ngIf="isPlaying" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -38,7 +38,8 @@
                     <path d="M13 6l6 6"></path>
                 </svg>
             </button>
-
         </div>
+
+
     </div>
 </div>

@@ -34,9 +34,6 @@ services:
     build: 
       context: ./backend
     command: celery -A celery_worker worker -P solo --loglevel=info
-    # command: celery -A celery_worker worker -P solo --loglevel=info
-    # volumes:
-    #   - .:/app
     depends_on:
       - redis
     deploy:

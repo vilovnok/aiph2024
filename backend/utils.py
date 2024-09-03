@@ -13,7 +13,7 @@ def conn_to_(cnf: str):
         return info['model']
     
     if isinstance(cnf, str) and cnf == 'svc':
-        with open('../config/svc_config.yaml', 'r') as file:
+        with open('./config/svc_config.yaml', 'r') as file:
             info=yaml.safe_load(file)    
         return info['svc']        
 

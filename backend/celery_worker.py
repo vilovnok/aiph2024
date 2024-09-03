@@ -1,5 +1,5 @@
 from celery import (Celery)
-from .model.pipeline import Pipeline
+from pipeline import Pipeline
 
 
 def make_celery(app_name=__name__):

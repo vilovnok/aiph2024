@@ -12,6 +12,10 @@ from transformers import (
 from transformers import (AutoTokenizer, T5ForConditionalGeneration)
 
 class Pipeline:
+    """
+    Pipeline for text generation
+    """
+
     def __init__(self):
         config = conn_to_(cnf='model')
         

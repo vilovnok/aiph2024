@@ -1,6 +1,9 @@
 from utils import cleanup
 
 class TextGenerator():
+    """
+        Text generator class
+    """
     def __init__(self, model, tokenizer, device):
         self.model = model
         self.tokenizer = tokenizer

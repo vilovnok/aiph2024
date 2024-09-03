@@ -23,10 +23,10 @@ async def healthcheck():
         "text":'Здравствуйте! Чем могу помочь ?',
         "type": 'bot'
         },
-        {
-        "text":'Здравствуйте! Могли бы вы мне ответить на ...',
-        "type": 'human'
-        }
+        # {
+        # "text":'Здравствуйте! Могли бы вы мне ответить на ...',
+        # "type": 'human'
+        # }
         ]
                 
     return {'status': 200, 'message': messages}
