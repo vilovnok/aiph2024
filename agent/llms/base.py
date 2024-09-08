@@ -5,7 +5,7 @@ from langchain_core.language_models import BaseChatModel
 from langchain_core.prompts import PromptTemplate
 
 
-class _BaseLLM(ABC):
+class BaseLLM(ABC):
     """
     Base class for Large Language Models.
     """

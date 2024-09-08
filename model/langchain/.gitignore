@@ -1,0 +1,10 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyCharm cache files (если вы используете PyCharm)
+.idea/
+
+# Jupyter Notebook cache files (если вы используете Jupyter)
+.ipynb_checkpoints/

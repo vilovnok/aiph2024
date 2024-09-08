@@ -1,6 +1,6 @@
 from langchain_ollama import OllamaLLM
 
-from ._base import _BaseLLM
+from .base import BaseLLM
 
 
 class LlamaLLM(_BaseLLM):
